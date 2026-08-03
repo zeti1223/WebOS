@@ -1,251 +1,404 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My WebOS</title>
-<style>
-    /* CSS Styling and Design */
-    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My WebOS</title>
+    <style>
+      /* CSS Styling and Design */
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-    /* Default dark theme */
-    body { background: linear-gradient(135deg, #1e1e2f, #2a2a4a); color: #fff; transition: background 0.5s ease; }
+      /* Default dark theme */
+      body {
+        background: linear-gradient(135deg, #1e1e2f, #2a2a4a);
+        color: #fff;
+        transition: background 0.5s ease;
+      }
 
-    /* Light theme (extra feature) */
-    body.light-mode { background: linear-gradient(135deg, #74ebd5, #acb6e5); color: #222; }
+      /* Light theme (extra feature) */
+      body.light-mode {
+        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        color: #222;
+      }
 
-    #desktop { position: relative; width: 100%; height: calc(100% - 40px); }
+      #desktop {
+        position: relative;
+        width: 100%;
+        height: calc(100% - 40px);
+      }
 
-    /* Window style */
-    .window {
-        position: absolute; width: 350px; background: rgba(30, 30, 46, 0.85);
-        border: 1px solid #555; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-        display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(5px);
-    }
-    body.light-mode .window { background: rgba(255, 255, 255, 0.85); border-color: #fff; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+      /* Window style */
+      .window {
+        position: absolute;
+        width: 350px;
+        background: rgba(30, 30, 46, 0.85);
+        border: 1px solid #555;
+        border-radius: 10px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        backdrop-filter: blur(5px);
+      }
+      body.light-mode .window {
+        background: rgba(255, 255, 255, 0.85);
+        border-color: #fff;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
 
-    /* Title bar (used for dragging) */
-    .title-bar {
-        background: rgba(0, 0, 0, 0.5); padding: 10px 15px; cursor: grab; user-select: none;
-        display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 14px; border-bottom: 1px solid #444;
-    }
-    body.light-mode .title-bar { background: rgba(0, 0, 0, 0.05); border-bottom: 1px solid #ddd; }
-    .title-bar:active { cursor: grabbing; }
+      /* Title bar (used for dragging) */
+      .title-bar {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px 15px;
+        cursor: grab;
+        user-select: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        font-size: 14px;
+        border-bottom: 1px solid #444;
+      }
+      body.light-mode .title-bar {
+        background: rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid #ddd;
+      }
+      .title-bar:active {
+        cursor: grabbing;
+      }
 
-    .content { padding: 15px; height: 220px; overflow-y: auto; font-size: 14px; line-height: 1.5; }
+      .content {
+        padding: 15px;
+        height: 220px;
+        overflow-y: auto;
+        font-size: 14px;
+        line-height: 1.5;
+      }
 
-    /* Taskbar */
-    #taskbar {
-        height: 40px; background: rgba(15, 15, 25, 0.9); display: flex; align-items: center; justify-content: space-between;
-        padding: 0 20px; box-shadow: 0 -2px 10px rgba(0,0,0,0.5); position: absolute; bottom: 0; width: 100%; box-sizing: border-box; backdrop-filter: blur(10px);
-    }
-    body.light-mode #taskbar { background: rgba(255, 255, 255, 0.7); box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+      /* Taskbar */
+      #taskbar {
+        height: 40px;
+        background: rgba(15, 15, 25, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        box-sizing: border-box;
+        backdrop-filter: blur(10px);
+      }
+      body.light-mode #taskbar {
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      }
 
-    button { padding: 8px 15px; cursor: pointer; border: none; border-radius: 6px; background: #4caf50; color: #fff; font-weight: bold; transition: background 0.2s; }
-    button:hover { background: #45a049; }
+      button {
+        padding: 8px 15px;
+        cursor: pointer;
+        border: none;
+        border-radius: 6px;
+        background: #4caf50;
+        color: #fff;
+        font-weight: bold;
+        transition: background 0.2s;
+      }
+      button:hover {
+        background: #45a049;
+      }
 
-    /* Minesweeper styling */
-    #minesweeper-window .content { height: auto; max-height: 320px; display: flex; flex-direction: column; align-items: center; }
-    .ms-header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px; font-family: monospace; font-size: 14px; }
-    .ms-header button { background: #607d8b; padding: 4px 10px; font-size: 12px; }
-    .ms-header button:hover { background: #546e7a; }
-    #ms-grid { display: grid; grid-template-columns: repeat(9, 24px); grid-template-rows: repeat(9, 24px); gap: 2px; user-select: none; }
-    .ms-cell {
-        width: 24px; height: 24px; background: #3a3a5a; border-radius: 3px; display: flex; align-items: center; justify-content: center;
-        font-size: 12px; font-weight: bold; cursor: pointer; border: 1px solid #555;
-    }
-    body.light-mode .ms-cell { background: #d0d8f0; border-color: #aaa; }
-    .ms-cell.revealed { background: rgba(0,0,0,0.25); cursor: default; }
-    body.light-mode .ms-cell.revealed { background: rgba(0,0,0,0.08); }
-    .ms-cell.mine { background: #c62828; }
-    .ms-cell.flagged { background: #ffb300; }
-</style>
-</head>
-<body>
-
-<div id="desktop">
-    <!-- 1. Window: Minesweeper game -->
-    <div class="window" id="minesweeper-window" style="top: 50px; left: 50px; z-index: 1;">
+      /* Minesweeper styling */
+      #minesweeper-window .content {
+        height: auto;
+        max-height: 320px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .ms-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 10px;
+        font-family: monospace;
+        font-size: 14px;
+      }
+      .ms-header button {
+        background: #607d8b;
+        padding: 4px 10px;
+        font-size: 12px;
+      }
+      .ms-header button:hover {
+        background: #546e7a;
+      }
+      #ms-grid {
+        display: grid;
+        grid-template-columns: repeat(9, 24px);
+        grid-template-rows: repeat(9, 24px);
+        gap: 2px;
+        user-select: none;
+      }
+      .ms-cell {
+        width: 24px;
+        height: 24px;
+        background: #3a3a5a;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        border: 1px solid #555;
+      }
+      body.light-mode .ms-cell {
+        background: #d0d8f0;
+        border-color: #aaa;
+      }
+      .ms-cell.revealed {
+        background: rgba(0, 0, 0, 0.25);
+        cursor: default;
+      }
+      body.light-mode .ms-cell.revealed {
+        background: rgba(0, 0, 0, 0.08);
+      }
+      .ms-cell.mine {
+        background: #c62828;
+      }
+      .ms-cell.flagged {
+        background: #ffb300;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="desktop">
+      <!-- 1. Window: Minesweeper game -->
+      <div
+        class="window"
+        id="minesweeper-window"
+        style="top: 50px; left: 50px; z-index: 1"
+      >
         <div class="title-bar">
-            <span>💣 Minesweeper</span>
+          <span>💣 Minesweeper</span>
         </div>
         <div class="content">
-            <div class="ms-header">
-                <span>💣 <span id="ms-mine-count">10</span></span>
-                <button onclick="initMinesweeper()">🙂 Restart</button>
-                <span id="ms-status">Playing</span>
-            </div>
-            <div id="ms-grid"></div>
+          <div class="ms-header">
+            <span>💣 <span id="ms-mine-count">10</span></span>
+            <button onclick="initMinesweeper()">🙂 Restart</button>
+            <span id="ms-status">Playing</span>
+          </div>
+          <div id="ms-grid"></div>
         </div>
-    </div>
+      </div>
 
-    <!-- 2. Window: Extra features -->
-    <div class="window" id="win2" style="top: 120px; left: 450px; z-index: 2;">
+      <!-- 2. Window: Extra features -->
+      <div class="window" id="win2" style="top: 120px; left: 450px; z-index: 2">
         <div class="title-bar">
-            <span>✨ Extra Features</span>
+          <span>✨ Extra Features</span>
         </div>
         <div class="content">
-            <h3 style="margin-top:0;">System Settings</h3>
-            <p>This feature wasn't part of the original instructions. Below you can switch the operating system's theme!</p>
-            <button onclick="toggleTheme()">🌓 Toggle Day / Night mode</button>
-            <p style="margin-top: 20px; font-size: 12px; opacity: 0.8;">Tip: Try moving the windows by dragging their title bars!</p>
+          <h3 style="margin-top: 0">System Settings</h3>
+          <p>
+            This feature wasn't part of the original instructions. Below you can
+            switch the operating system's theme!
+          </p>
+          <button onclick="toggleTheme()">🌓 Toggle Day / Night mode</button>
+          <p style="margin-top: 20px; font-size: 12px; opacity: 0.8">
+            Tip: Try moving the windows by dragging their title bars!
+          </p>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- Taskbar and Clock (also an extra feature) -->
-<div id="taskbar">
-    <div><strong>🚀 WebOS 1.0</strong></div>
-    <div id="clock" style="font-weight: bold; font-family: monospace; font-size: 16px;">--:--:--</div>
-</div>
+    <!-- Taskbar and Clock (also an extra feature) -->
+    <div id="taskbar">
+      <div><strong>🚀 WebOS 1.0</strong></div>
+      <div
+        id="clock"
+        style="font-weight: bold; font-family: monospace; font-size: 16px"
+      >
+        --:--:--
+      </div>
+    </div>
 
-<script>
-    // --- 1. Window dragging logic ---
-    const windows = document.querySelectorAll('.window');
-    let highestZIndex = 10; // Initial z-index
+    <script>
+      // --- 1. Window dragging logic ---
+      const windows = document.querySelectorAll(".window");
+      let highestZIndex = 10; // Initial z-index
 
-    windows.forEach(win => {
-        const titleBar = win.querySelector('.title-bar');
-        let isDragging = false, startX, startY, initialX, initialY;
+      windows.forEach((win) => {
+        const titleBar = win.querySelector(".title-bar");
+        let isDragging = false,
+          startX,
+          startY,
+          initialX,
+          initialY;
 
         // Bring window to front when clicked
-        win.addEventListener('mousedown', () => {
-            highestZIndex++;
-            win.style.zIndex = highestZIndex;
+        win.addEventListener("mousedown", () => {
+          highestZIndex++;
+          win.style.zIndex = highestZIndex;
         });
 
         // Start dragging on the title bar
-        titleBar.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.clientX;
-            startY = e.clientY;
-            initialX = win.offsetLeft;
-            initialY = win.offsetTop;
+        titleBar.addEventListener("mousedown", (e) => {
+          isDragging = true;
+          startX = e.clientX;
+          startY = e.clientY;
+          initialX = win.offsetLeft;
+          initialY = win.offsetTop;
         });
 
         // Dragging the mouse
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            // Calculate the movement delta
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
-            // Apply the new position
-            win.style.left = `${initialX + dx}px`;
-            win.style.top = `${initialY + dy}px`;
+        document.addEventListener("mousemove", (e) => {
+          if (!isDragging) return;
+          // Calculate the movement delta
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          // Apply the new position
+          win.style.left = `${initialX + dx}px`;
+          win.style.top = `${initialY + dy}px`;
         });
 
         // End dragging
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
+        document.addEventListener("mouseup", () => {
+          isDragging = false;
         });
-    });
+      });
 
-    // --- 2. Extra feature: Theme toggle ---
-    function toggleTheme() {
-        document.body.classList.toggle('light-mode');
-    }
+      // --- 2. Extra feature: Theme toggle ---
+      function toggleTheme() {
+        document.body.classList.toggle("light-mode");
+      }
 
-    // --- 3. Extra feature: Real-time clock ---
-    function updateClock() {
+      // --- 3. Extra feature: Real-time clock ---
+      function updateClock() {
         const now = new Date();
-        const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-        document.getElementById('clock').innerText = timeString;
-    }
+        const timeString = now.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        });
+        document.getElementById("clock").innerText = timeString;
+      }
 
-    setInterval(updateClock, 1000); // Update the clock every second
-    updateClock(); // Call immediately so we don't have to wait 1 second on load
+      setInterval(updateClock, 1000); // Update the clock every second
+      updateClock(); // Call immediately so we don't have to wait 1 second on load
 
-    // --- 4. Minesweeper game ---
-    const MS_SIZE = 9;
-    const MS_MINES = 10;
-    let msBoard = [];
-    let msRevealedCount = 0;
-    let msGameOver = false;
+      // --- 4. Minesweeper game ---
+      const MS_SIZE = 9;
+      const MS_MINES = 10;
+      let msBoard = [];
+      let msRevealedCount = 0;
+      let msGameOver = false;
 
-    function initMinesweeper() {
+      function initMinesweeper() {
         msBoard = [];
         msRevealedCount = 0;
         msGameOver = false;
-        document.getElementById('ms-status').innerText = 'Playing';
-        document.getElementById('ms-mine-count').innerText = MS_MINES;
+        document.getElementById("ms-status").innerText = "Playing";
+        document.getElementById("ms-mine-count").innerText = MS_MINES;
 
         // Build empty board
         for (let r = 0; r < MS_SIZE; r++) {
-            const row = [];
-            for (let c = 0; c < MS_SIZE; c++) {
-                row.push({ mine: false, revealed: false, flagged: false, adjacent: 0 });
-            }
-            msBoard.push(row);
+          const row = [];
+          for (let c = 0; c < MS_SIZE; c++) {
+            row.push({
+              mine: false,
+              revealed: false,
+              flagged: false,
+              adjacent: 0,
+            });
+          }
+          msBoard.push(row);
         }
 
         // Place mines randomly
         let placed = 0;
         while (placed < MS_MINES) {
-            const r = Math.floor(Math.random() * MS_SIZE);
-            const c = Math.floor(Math.random() * MS_SIZE);
-            if (!msBoard[r][c].mine) {
-                msBoard[r][c].mine = true;
-                placed++;
-            }
+          const r = Math.floor(Math.random() * MS_SIZE);
+          const c = Math.floor(Math.random() * MS_SIZE);
+          if (!msBoard[r][c].mine) {
+            msBoard[r][c].mine = true;
+            placed++;
+          }
         }
 
         // Calculate adjacent mine counts
         for (let r = 0; r < MS_SIZE; r++) {
-            for (let c = 0; c < MS_SIZE; c++) {
-                if (msBoard[r][c].mine) continue;
-                let count = 0;
-                for (let dr = -1; dr <= 1; dr++) {
-                    for (let dc = -1; dc <= 1; dc++) {
-                        const nr = r + dr, nc = c + dc;
-                        if (nr >= 0 && nr < MS_SIZE && nc >= 0 && nc < MS_SIZE && msBoard[nr][nc].mine) {
-                            count++;
-                        }
-                    }
+          for (let c = 0; c < MS_SIZE; c++) {
+            if (msBoard[r][c].mine) continue;
+            let count = 0;
+            for (let dr = -1; dr <= 1; dr++) {
+              for (let dc = -1; dc <= 1; dc++) {
+                const nr = r + dr,
+                  nc = c + dc;
+                if (
+                  nr >= 0 &&
+                  nr < MS_SIZE &&
+                  nc >= 0 &&
+                  nc < MS_SIZE &&
+                  msBoard[nr][nc].mine
+                ) {
+                  count++;
                 }
-                msBoard[r][c].adjacent = count;
+              }
             }
+            msBoard[r][c].adjacent = count;
+          }
         }
 
         renderMinesweeper();
-    }
+      }
 
-    function renderMinesweeper() {
-        const grid = document.getElementById('ms-grid');
-        grid.innerHTML = '';
+      function renderMinesweeper() {
+        const grid = document.getElementById("ms-grid");
+        grid.innerHTML = "";
         for (let r = 0; r < MS_SIZE; r++) {
-            for (let c = 0; c < MS_SIZE; c++) {
-                const cellData = msBoard[r][c];
-                const cellEl = document.createElement('div');
-                cellEl.className = 'ms-cell';
-                if (cellData.revealed) {
-                    cellEl.classList.add('revealed');
-                    if (cellData.mine) {
-                        cellEl.classList.add('mine');
-                        cellEl.innerText = '💣';
-                    } else if (cellData.adjacent > 0) {
-                        cellEl.innerText = cellData.adjacent;
-                    }
-                } else if (cellData.flagged) {
-                    cellEl.classList.add('flagged');
-                    cellEl.innerText = '🚩';
-                }
-
-                cellEl.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    revealCell(r, c);
-                });
-                cellEl.addEventListener('contextmenu', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    toggleFlag(r, c);
-                });
-
-                grid.appendChild(cellEl);
+          for (let c = 0; c < MS_SIZE; c++) {
+            const cellData = msBoard[r][c];
+            const cellEl = document.createElement("div");
+            cellEl.className = "ms-cell";
+            if (cellData.revealed) {
+              cellEl.classList.add("revealed");
+              if (cellData.mine) {
+                cellEl.classList.add("mine");
+                cellEl.innerText = "💣";
+              } else if (cellData.adjacent > 0) {
+                cellEl.innerText = cellData.adjacent;
+              }
+            } else if (cellData.flagged) {
+              cellEl.classList.add("flagged");
+              cellEl.innerText = "🚩";
             }
-        }
-    }
 
-    function revealCell(r, c) {
+            cellEl.addEventListener("click", (e) => {
+              e.stopPropagation();
+              revealCell(r, c);
+            });
+            cellEl.addEventListener("contextmenu", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleFlag(r, c);
+            });
+
+            grid.appendChild(cellEl);
+          }
+        }
+      }
+
+      function revealCell(r, c) {
         if (msGameOver) return;
         const cell = msBoard[r][c];
         if (cell.revealed || cell.flagged) return;
@@ -254,61 +407,64 @@
         msRevealedCount++;
 
         if (cell.mine) {
-            msGameOver = true;
-            revealAllMines();
-            document.getElementById('ms-status').innerText = '💥 You lost!';
-            renderMinesweeper();
-            return;
+          msGameOver = true;
+          revealAllMines();
+          document.getElementById("ms-status").innerText = "💥 You lost!";
+          renderMinesweeper();
+          return;
         }
 
         // Flood fill for empty cells
         if (cell.adjacent === 0) {
-            for (let dr = -1; dr <= 1; dr++) {
-                for (let dc = -1; dc <= 1; dc++) {
-                    const nr = r + dr, nc = c + dc;
-                    if (nr >= 0 && nr < MS_SIZE && nc >= 0 && nc < MS_SIZE) {
-                        if (!msBoard[nr][nc].revealed && !msBoard[nr][nc].flagged) {
-                            revealCell(nr, nc);
-                        }
-                    }
+          for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+              const nr = r + dr,
+                nc = c + dc;
+              if (nr >= 0 && nr < MS_SIZE && nc >= 0 && nc < MS_SIZE) {
+                if (!msBoard[nr][nc].revealed && !msBoard[nr][nc].flagged) {
+                  revealCell(nr, nc);
                 }
+              }
             }
+          }
         }
 
         checkWin();
         renderMinesweeper();
-    }
+      }
 
-    function toggleFlag(r, c) {
+      function toggleFlag(r, c) {
         if (msGameOver) return;
         const cell = msBoard[r][c];
         if (cell.revealed) return;
         cell.flagged = !cell.flagged;
 
-        const flaggedCount = msBoard.flat().filter(cell => cell.flagged).length;
-        document.getElementById('ms-mine-count').innerText = MS_MINES - flaggedCount;
+        const flaggedCount = msBoard
+          .flat()
+          .filter((cell) => cell.flagged).length;
+        document.getElementById("ms-mine-count").innerText =
+          MS_MINES - flaggedCount;
 
         renderMinesweeper();
-    }
+      }
 
-    function revealAllMines() {
+      function revealAllMines() {
         for (let r = 0; r < MS_SIZE; r++) {
-            for (let c = 0; c < MS_SIZE; c++) {
-                if (msBoard[r][c].mine) msBoard[r][c].revealed = true;
-            }
+          for (let c = 0; c < MS_SIZE; c++) {
+            if (msBoard[r][c].mine) msBoard[r][c].revealed = true;
+          }
         }
-    }
+      }
 
-    function checkWin() {
+      function checkWin() {
         const totalCells = MS_SIZE * MS_SIZE;
         if (msRevealedCount === totalCells - MS_MINES) {
-            msGameOver = true;
-            document.getElementById('ms-status').innerText = '🎉 You won!';
+          msGameOver = true;
+          document.getElementById("ms-status").innerText = "🎉 You won!";
         }
-    }
+      }
 
-    initMinesweeper();
-</script>
-
-</body>
+      initMinesweeper();
+    </script>
+  </body>
 </html>
