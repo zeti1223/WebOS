@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saját WebOS</title>
+<style>
+    /* CSS Formázás és Design */
+    body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    
+    /* Alapértelmezett sötét téma */
+    body { background: linear-gradient(135deg, #1e1e2f, #2a2a4a); color: #fff; transition: background 0.5s ease; }
+    
+    /* Világos téma (Új funkció) */
+    body.light-mode { background: linear-gradient(135deg, #74ebd5, #acb6e5); color: #222; }
+    
+    #desktop { position: relative; width: 100%; height: calc(100% - 40px); }
+    
+    /* Ablakok stílusa */
+    .window {
+        position: absolute; width: 350px; background: rgba(30, 30, 46, 0.85);
+        border: 1px solid #555; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(5px);
+    }
+    body.light-mode .window { background: rgba(255, 255, 255, 0.85); border-color: #fff; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+    
+    /* Címsor (Ezzel lehet mozgatni) */
+    .title-bar {
+        background: rgba(0, 0, 0, 0.5); padding: 10px 15px; cursor: grab; user-select: none;
+        display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 14px; border-bottom: 1px solid #444;
+    }
+    body.light-mode .title-bar { background: rgba(0, 0, 0, 0.05); border-bottom: 1px solid #ddd; }
+    .title-bar:active { cursor: grabbing; }
+    
+    .content { padding: 15px; height: 220px; overflow-y: auto; font-size: 14px; line-height: 1.5; }
+    
+    /* Tálca */
+    #taskbar {
+        height: 40px; background: rgba(15, 15, 25, 0.9); display: flex; align-items: center; justify-content: space-between;
+        padding: 0 20px; box-shadow: 0 -2px 10px rgba(0,0,0,0.5); position: absolute; bottom: 0; width: 100%; box-sizing: border-box; backdrop-filter: blur(10px);
+    }
+    body.light-mode #taskbar { background: rgba(255, 255, 255, 0.7); box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+    
+    button { padding: 8px 15px; cursor: pointer; border: none; border-radius: 6px; background: #4caf50; color: #fff; font-weight: bold; transition: background 0.2s; }
+    button:hover { background: #45a049; }
+</style>
+</head>
+<body>
+
+<div id="desktop">
+    <!-- 1. Ablak: Fejlesztői napló követelmény -->
+    <div class="window" id="win1" style="top: 50px; left: 50px; z-index: 1;">
+        <div class="title-bar">
+            <span>📝 Fejlesztői Napló (Devlogs)</span>
+        </div>
+        <div class="content">
+            <h3 style="margin-top:0;">Projekt állapota:</h3>
+            <ul>
+                <li><strong>Devlog 1:</strong> Létrehoztam az alap HTML/CSS struktúrát, és beállítottam a full-screen asztali környezetet.</li>
+                <li><strong>Devlog 2:</strong> Megírtam a JavaScript logikát, amivel az ablakok mozgathatóak (Drag & Drop), és kattintásra előtérbe kerülnek.</li>
+                <li><strong>Devlog 3:</strong> Kialakítottam egy egyedi Glassmorphism stílust, és hozzáadtam az extra funkciókat a sikeres beküldéshez!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 2. Ablak: Új funkció követelmény -->
+    <div class="window" id="win2" style="top: 120px; left: 450px; z-index: 2;">
+        <div class="title-bar">
+            <span>✨ Extra Funkciók</span>
+        </div>
+        <div class="content">
+            <h3 style="margin-top:0;">Rendszer beállítások</h3>
+            <p>Ez a funkció nem szerepelt az eredeti útmutatóban. Alább megváltoztathatod az operációs rendszer témáját!</p>
+            <button onclick="toggleTheme()">🌓 Nappali / Éjszakai mód váltása</button>
+            <p style="margin-top: 20px; font-size: 12px; opacity: 0.8;">Tipp: Próbáld meg mozgatni az ablakokat a címsoruknál fogva!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Tálca és Óra (Szintén új funkció) -->
+<div id="taskbar">
+    <div><strong>🚀 WebOS 1.0</strong></div>
+    <div id="clock" style="font-weight: bold; font-family: monospace; font-size: 16px;">--:--:--</div>
+</div>
+
+<script>
+    // --- 1. Ablakok mozgatásának logikája ---
+    const windows = document.querySelectorAll('.window');
+    let highestZIndex = 10; // Kezdeti Z-index
+
+    windows.forEach(win => {
+        const titleBar = win.querySelector('.title-bar');
+        let isDragging = false, startX, startY, initialX, initialY;
+
+        // Ha rákattintunk egy ablakra, hozza előtérbe
+        win.addEventListener('mousedown', () => {
+            highestZIndex++;
+            win.style.zIndex = highestZIndex;
+        });
+
+        // Mozgatás kezdete a címsoron
+        titleBar.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            initialX = win.offsetLeft;
+            initialY = win.offsetTop;
+        });
+
+        // Egér húzása
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            // Kiszámoljuk az elmozdulás mértékét
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            // Alkalmazzuk az új pozíciót
+            win.style.left = `${initialX + dx}px`;
+            win.style.top = `${initialY + dy}px`;
+        });
+
+        // Mozgatás vége
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+    });
+
+    // --- 2. Új funkció: Téma váltó ---
+    function toggleTheme() {
+        document.body.classList.toggle('light-mode');
+    }
+
+    // --- 3. Új funkció: Valós idejű óra ---
+    function updateClock() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('hu-HU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        document.getElementById('clock').innerText = timeString;
+    }
+    
+    setInterval(updateClock, 1000); // Óra frissítése másodpercenként
+    updateClock(); // Azonnali hívás, hogy ne kelljen 1 másodpercet várni a betöltésre
+</script>
+
+</body>
+</html>
