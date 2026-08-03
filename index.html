@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebOS Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">WebOS</div>
+        <nav class="nav-list" aria-label="Primary">
+          <a class="nav-item active" href="#"><span>◉</span> Home</a>
+          <a class="nav-item" href="#"><span>▣</span> Projects</a>
+          <a class="nav-item" href="#"><span>◌</span> Tasks</a>
+          <a class="nav-item" href="#"><span>✦</span> Rewards</a>
+          <a class="nav-item" href="#"><span>⚙</span> Settings</a>
+        </nav>
+        <div class="sidebar-footer">online • 5 apps</div>
+      </aside>
+
+      <main class="workspace">
+        <section class="hero card">
+          <span class="status-chip">Focus mode</span>
+          <h1>Build your next sprint from one desktop.</h1>
+          <p>
+            Track objectives, claim rewards, and keep your team in sync with a
+            clean WebOS-inspired command center.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary">Start mission</button>
+            <button class="btn btn-secondary">View roadmap</button>
+          </div>
+
+          <div class="quick-actions">
+            <span>Quick actions:</span>
+            <button class="mini-action">+ New task</button>
+            <button class="mini-action">Invite</button>
+            <button class="mini-action">Deploy</button>
+          </div>
+        </section>
+
+        <section class="panel-grid">
+          <div class="stack">
+            <article class="card panel-card">
+              <h2>Milestone checklist</h2>
+              <ul>
+                <li><input type="checkbox" checked /> Layout wireframe approved</li>
+                <li><input type="checkbox" checked /> Hero actions connected</li>
+                <li><input type="checkbox" /> QA responsive audit</li>
+              </ul>
+            </article>
+            <article class="card panel-card">
+              <h2>Release requirements</h2>
+              <p class="muted">2 of 4 completed</p>
+              <div class="tag-row">
+                <span class="tag">Accessibility</span>
+                <span class="tag">Performance</span>
+                <span class="tag">Docs</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="stack">
+            <article class="card panel-card">
+              <h2>Rewards pool</h2>
+              <p class="big-number">1,280 XP</p>
+              <p class="muted">+140 XP from weekly challenges</p>
+            </article>
+            <article class="card panel-card">
+              <h2>Team intel</h2>
+              <p>3 teammates are active now.</p>
+              <div class="activity-strip">
+                <span>UI review started</span>
+                <span>CI: healthy</span>
+                <span>2 PRs waiting</span>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <aside class="utility">
+        <div class="card utility-card">
+          <label for="search">Search</label>
+          <input id="search" type="text" placeholder="Find app or task" />
+        </div>
+        <div class="card utility-card">
+          <h3>Daily pulse</h3>
+          <p class="muted">Uptime 99.95%</p>
+          <p>Next sync in 18 minutes.</p>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>
