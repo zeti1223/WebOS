@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My WebOS</title>
     <style>
-      /* CSS Styling and Design */
       body,
       html {
         margin: 0;
@@ -15,14 +14,12 @@
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
 
-      /* Default dark theme */
       body {
         background: linear-gradient(135deg, #1e1e2f, #2a2a4a);
         color: #fff;
         transition: background 0.5s ease;
       }
 
-      /* Light theme (extra feature) */
       body.light-mode {
         background: linear-gradient(135deg, #74ebd5, #acb6e5);
         color: #222;
@@ -34,7 +31,6 @@
         height: calc(100% - 40px);
       }
 
-      /* Window style */
       .window {
         position: absolute;
         width: 350px;
@@ -53,7 +49,6 @@
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       }
 
-      /* Title bar (used for dragging) */
       .title-bar {
         background: rgba(0, 0, 0, 0.5);
         padding: 10px 15px;
@@ -82,7 +77,6 @@
         line-height: 1.5;
       }
 
-      /* Taskbar */
       #taskbar {
         height: 40px;
         background: rgba(15, 15, 25, 0.9);
@@ -116,7 +110,6 @@
         background: #45a049;
       }
 
-      /* Minesweeper styling */
       #minesweeper-window .content {
         height: auto;
         max-height: 320px;
@@ -182,7 +175,6 @@
   </head>
   <body>
     <div id="desktop">
-      <!-- 1. Window: Minesweeper game -->
       <div
         class="window"
         id="minesweeper-window"
@@ -201,7 +193,6 @@
         </div>
       </div>
 
-      <!-- 2. Window: Extra features -->
       <div class="window" id="win2" style="top: 120px; left: 450px; z-index: 2">
         <div class="title-bar">
           <span>✨ Extra Features</span>
@@ -220,9 +211,8 @@
       </div>
     </div>
 
-    <!-- Taskbar and Clock (also an extra feature) -->
     <div id="taskbar">
-      <div><strong>🚀 WebOS 1.0</strong></div>
+      <div><strong>WebOS 1.0</strong></div>
       <div
         id="clock"
         style="font-weight: bold; font-family: monospace; font-size: 16px"
@@ -232,7 +222,6 @@
     </div>
 
     <script>
-      // --- 1. Window dragging logic ---
       const windows = document.querySelectorAll(".window");
       let highestZIndex = 10; // Initial z-index
 
@@ -244,13 +233,11 @@
           initialX,
           initialY;
 
-        // Bring window to front when clicked
         win.addEventListener("mousedown", () => {
           highestZIndex++;
           win.style.zIndex = highestZIndex;
         });
 
-        // Start dragging on the title bar
         titleBar.addEventListener("mousedown", (e) => {
           isDragging = true;
           startX = e.clientX;
@@ -259,29 +246,23 @@
           initialY = win.offsetTop;
         });
 
-        // Dragging the mouse
         document.addEventListener("mousemove", (e) => {
           if (!isDragging) return;
-          // Calculate the movement delta
           const dx = e.clientX - startX;
           const dy = e.clientY - startY;
-          // Apply the new position
           win.style.left = `${initialX + dx}px`;
           win.style.top = `${initialY + dy}px`;
         });
 
-        // End dragging
         document.addEventListener("mouseup", () => {
           isDragging = false;
         });
       });
 
-      // --- 2. Extra feature: Theme toggle ---
       function toggleTheme() {
         document.body.classList.toggle("light-mode");
       }
 
-      // --- 3. Extra feature: Real-time clock ---
       function updateClock() {
         const now = new Date();
         const timeString = now.toLocaleTimeString("en-US", {
@@ -293,10 +274,9 @@
         document.getElementById("clock").innerText = timeString;
       }
 
-      setInterval(updateClock, 1000); // Update the clock every second
-      updateClock(); // Call immediately so we don't have to wait 1 second on load
+      setInterval(updateClock, 1000);
+      updateClock(); 
 
-      // --- 4. Minesweeper game ---
       const MS_SIZE = 9;
       const MS_MINES = 10;
       let msBoard = [];
@@ -310,7 +290,6 @@
         document.getElementById("ms-status").innerText = "Playing";
         document.getElementById("ms-mine-count").innerText = MS_MINES;
 
-        // Build empty board
         for (let r = 0; r < MS_SIZE; r++) {
           const row = [];
           for (let c = 0; c < MS_SIZE; c++) {
@@ -324,7 +303,6 @@
           msBoard.push(row);
         }
 
-        // Place mines randomly
         let placed = 0;
         while (placed < MS_MINES) {
           const r = Math.floor(Math.random() * MS_SIZE);
@@ -335,7 +313,6 @@
           }
         }
 
-        // Calculate adjacent mine counts
         for (let r = 0; r < MS_SIZE; r++) {
           for (let c = 0; c < MS_SIZE; c++) {
             if (msBoard[r][c].mine) continue;
@@ -414,7 +391,6 @@
           return;
         }
 
-        // Flood fill for empty cells
         if (cell.adjacent === 0) {
           for (let dr = -1; dr <= 1; dr++) {
             for (let dc = -1; dc <= 1; dc++) {
