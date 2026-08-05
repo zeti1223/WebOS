@@ -12,8 +12,8 @@ const appConfigs = {
     },
     notepad: {
         title: '<i class="fa-solid fa-file-lines"></i> NOTEPAD',
-        width: 500,
-        height: 400,
+        width: 700,
+        height: 500,
         content: windowId => createNotepadContent(windowId)
     },
     calculator: {
@@ -82,6 +82,10 @@ function openApp(appName) {
     
     if (appName === 'minesweeper') {
         initMinesweeper(windowId);
+    }
+    
+    if (appName === 'notepad') {
+        initNotepad(windowId);
     }
 }
 
