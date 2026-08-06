@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     startClock();
+    initDesktopIcons();
     
     setTimeout(() => {
         openApp('minesweeper');

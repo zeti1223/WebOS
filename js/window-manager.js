@@ -33,6 +33,24 @@ const appConfigs = {
         width: 400,
         height: 350,
         content: windowId => createAboutContent(windowId)
+    },
+    terminal: {
+        title: '<i class="fa-solid fa-terminal"></i> TERMINAL',
+        width: 600,
+        height: 400,
+        content: windowId => createTerminalContent(windowId)
+    },
+    calendar: {
+        title: '<i class="fa-solid fa-calendar"></i> CALENDAR',
+        width: 400,
+        height: 450,
+        content: windowId => createCalendarContent(windowId)
+    },
+    'system-monitor': {
+        title: '<i class="fa-solid fa-chart-line"></i> SYSTEM MONITOR',
+        width: 450,
+        height: 500,
+        content: windowId => createSystemMonitorContent(windowId)
     }
 };
 
@@ -87,11 +105,27 @@ function openApp(appName) {
     if (appName === 'notepad') {
         initNotepad(windowId);
     }
+    
+    if (appName === 'terminal') {
+        initTerminal(windowId);
+    }
+    
+    if (appName === 'calendar') {
+        initCalendar(windowId);
+    }
+    
+    if (appName === 'system-monitor') {
+        initSystemMonitor(windowId);
+    }
 }
 
 function closeWindow(windowId) {
     const windowData = windows[windowId];
     if (windowData) {
+        // Clean up system monitor interval if closing system monitor
+        if (windowData.appName === 'system-monitor') {
+            cleanupSystemMonitor(windowId);
+        }
         windowData.element.remove();
         delete windows[windowId];
         updateTaskbar();

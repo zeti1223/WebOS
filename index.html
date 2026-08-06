@@ -12,26 +12,38 @@
     <div class="background"></div>
     
     <div id="desktop" class="relative w-full h-[calc(100vh-50px)] p-5">
-        <div class="desktop-icons flex flex-col gap-5 absolute top-5 left-5">
-            <div class="desktop-icon" onclick="openApp('minesweeper')">
+        <div class="desktop-icons absolute top-5 left-5" id="desktop-icons">
+            <div class="desktop-icon" id="icon-minesweeper" data-app="minesweeper" ondblclick="openApp('minesweeper')">
                 <div class="icon"><i class="fa-solid fa-bomb"></i></div>
                 <div class="label">MINESWEEPER</div>
             </div>
-            <div class="desktop-icon" onclick="openApp('notepad')">
+            <div class="desktop-icon" id="icon-notepad" data-app="notepad" ondblclick="openApp('notepad')">
                 <div class="icon"><i class="fa-solid fa-file-lines"></i></div>
                 <div class="label">NOTEPAD</div>
             </div>
-            <div class="desktop-icon" onclick="openApp('calculator')">
+            <div class="desktop-icon" id="icon-calculator" data-app="calculator" ondblclick="openApp('calculator')">
                 <div class="icon"><i class="fa-solid fa-calculator"></i></div>
                 <div class="label">CALCULATOR</div>
             </div>
-            <div class="desktop-icon" onclick="openApp('settings')">
+            <div class="desktop-icon" id="icon-settings" data-app="settings" ondblclick="openApp('settings')">
                 <div class="icon"><i class="fa-solid fa-gear"></i></div>
                 <div class="label">SETTINGS</div>
             </div>
-            <div class="desktop-icon" onclick="openApp('about')">
+            <div class="desktop-icon" id="icon-about" data-app="about" ondblclick="openApp('about')">
                 <div class="icon"><i class="fa-solid fa-circle-info"></i></div>
                 <div class="label">ABOUT</div>
+            </div>
+            <div class="desktop-icon" id="icon-terminal" data-app="terminal" ondblclick="openApp('terminal')">
+                <div class="icon"><i class="fa-solid fa-terminal"></i></div>
+                <div class="label">TERMINAL</div>
+            </div>
+            <div class="desktop-icon" id="icon-calendar" data-app="calendar" ondblclick="openApp('calendar')">
+                <div class="icon"><i class="fa-solid fa-calendar"></i></div>
+                <div class="label">CALENDAR</div>
+            </div>
+            <div class="desktop-icon" id="icon-system-monitor" data-app="system-monitor" ondblclick="openApp('system-monitor')">
+                <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="label">MONITOR</div>
             </div>
         </div>
     </div>
@@ -49,6 +61,9 @@
     <script src="js/apps/calculator.js"></script>
     <script src="js/apps/settings.js"></script>
     <script src="js/apps/about.js"></script>
+    <script src="js/apps/terminal.js"></script>
+    <script src="js/apps/calendar.js"></script>
+    <script src="js/apps/system-monitor.js"></script>
     <script src="js/window-manager.js"></script>
     <script src="js/main.js"></script>
 </body>

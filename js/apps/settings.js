@@ -19,6 +19,10 @@ function createSettingsContent(windowId) {
                 <span class="setting-label" style="font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 1px;">GRID BACKGROUND</span>
                 <div class="cyber-toggle active ${settings.grid ? 'active' : ''}" id="grid-toggle-${windowId}" onclick="toggleSetting('grid', '${windowId}')"></div>
             </div>
+            <div class="setting-item flex justify-between items-center p-2 border border-cyan-500/30" style="border-color: rgba(0,240,255,0.3);">
+                <span class="setting-label" style="font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 1px;">RESET ICONS</span>
+                <button class="cyber-btn" onclick="resetIconPositions()">RESET</button>
+            </div>
         </div>
     `;
 }
