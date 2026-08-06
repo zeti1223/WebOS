@@ -53,7 +53,7 @@ function createSystemMonitorContent(windowId) {
                 <div class="system-info">
                     <div class="info-item">
                         <span class="info-label">OS:</span>
-                        <span class="info-value">CYBER-OS v2.0</span>
+                        <span class="info-value">CYBER-OS v3.1</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">KERNEL:</span>
