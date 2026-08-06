@@ -574,6 +574,11 @@ body, html {
     caret-color: var(--neon-green);
 }
 
+.terminal-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 /* Calendar Styles */
 .calendar-container {
     display: flex;

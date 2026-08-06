@@ -70,7 +70,6 @@ Available commands:
   neofetch    - Display system information
   ls          - List files
   pwd         - Print working directory
-  matrix      - Toggle matrix effect
   hack        - Simulate hacking sequence
             `;
             break;
@@ -92,12 +91,13 @@ Available commands:
             break;
         case 'neofetch':
             result = `
-   ████████╗██╗   ██╗ ██████╗     ████████╗██╗   ██╗ ██████╗     root@cyber-os
-   ╚══██╔══╝██║   ██║██╔═══██╗    ╚══██╔══╝██║   ██║██╔═══██╗    -----------
-      ██║   ██║   ██║██║   ██║       ██║   ██║   ██║██║   ██║    OS: CYBER-OS v3.1
-      ██║   ██║   ██║██║   ██║       ██║   ██║   ██║██║   ██║    Host: Web Browser
-      ██║   ╚██████╔╝╚██████╔╝       ██║   ╚██████╔╝╚██████╔╝    Kernel: JavaScript
-      ╚═╝    ╚═════╝  ╚═════╝        ╚═╝    ╚═════╝  ╚═════╝     Shell: CyberTerm
+root@cyber-os
+-----------
+OS: CYBER-OS v3.1
+Host: Web Browser
+Kernel: JavaScript
+Shell: CyberTerm
+Resolution: ${window.innerWidth}x${window.innerHeight}
             `;
             break;
         case 'ls':
@@ -105,10 +105,6 @@ Available commands:
             break;
         case 'pwd':
             result = '/root';
-            break;
-        case 'matrix':
-            toggleMatrixEffect(windowId);
-            result = 'Matrix effect toggled';
             break;
         case 'hack':
             simulateHack(windowId);
@@ -140,13 +136,6 @@ function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
-}
-
-function toggleMatrixEffect(windowId) {
-    const terminalContainer = document.querySelector(`#window-${windowId} .terminal-container`);
-    if (terminalContainer) {
-        terminalContainer.classList.toggle('matrix-mode');
-    }
 }
 
 function simulateHack(windowId) {
