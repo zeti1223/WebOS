@@ -67,7 +67,7 @@ Available commands:
   echo [text] - Echo text back
   whoami      - Display current user
   uptime      - Show system uptime
-  neofetch    - Display system information
+  fastfech    - Display system information
   ls          - List files
   pwd         - Print working directory
   hack        - Simulate hacking sequence
@@ -89,7 +89,7 @@ Available commands:
             const uptime = Math.floor(Math.random() * 1000000);
             result = `up ${uptime} seconds, load average: 0.52, 0.58, 0.59`;
             break;
-        case 'neofetch':
+        case 'fastfech':
             result = `
 root@cyber-os
 -----------
