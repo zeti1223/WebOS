@@ -6,5 +6,5 @@ document.addEventListener('DOMContentLoaded', () => {
         openApp('minesweeper');
     }, 500);
     
-    console.log('CYBER-OS v3.1 initialized successfully');
+    console.log('CYBER-OS v3.2 initialized successfully');
 });

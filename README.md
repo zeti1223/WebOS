@@ -1,8 +1,8 @@
-# CYBER-OS v3.1
+# CYBER-OS v3.2
 
 A retro-futuristic web-based operating system with a cyberpunk aesthetic. Built entirely with vanilla HTML, CSS, and JavaScript - no frameworks required.
 
-![Cyber-OS](https://img.shields.io/badge/version-3.1.0-neon_cyan) ![License](https://img.shields.io/badge/license-MIT-neon_pink)
+![Cyber-OS](https://img.shields.io/badge/version-3.2.0-neon_cyan) ![License](https://img.shields.io/badge/license-MIT-neon_pink)
 
 ## Features
 
@@ -50,7 +50,7 @@ A retro-futuristic web-based operating system with a cyberpunk aesthetic. Built 
 
 ## Design Philosophy
 
-CYBER-OS v3.1 features a unique retro-futuristic cyberpunk aesthetic that sets it apart from typical web applications:
+CYBER-OS v3.2 features a unique retro-futuristic cyberpunk aesthetic that sets it apart from typical web applications:
 
 - **Color Palette**: Neon cyan (#00f0ff), neon pink (#ff00aa), neon green (#00ff88), and neon yellow (#ffff00) on dark backgrounds
 - **Typography**: Orbitron font for headers, Share Tech Mono for content - creating a futuristic terminal feel

@@ -52,12 +52,24 @@ function createSystemMonitorContent(windowId) {
                 <div class="monitor-title">SYSTEM INFO</div>
                 <div class="system-info">
                     <div class="info-item">
-                        <span class="info-label">OS:</span>
-                        <span class="info-value">CYBER-OS v3.1</span>
+                        <span class="info-label">PLATFORM:</span>
+                        <span class="info-value" id="platform-${windowId}">Loading...</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">KERNEL:</span>
-                        <span class="info-value">JavaScript ES6</span>
+                        <span class="info-label">CPU CORES:</span>
+                        <span class="info-value" id="cpu-cores-${windowId}">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">SCREEN:</span>
+                        <span class="info-value" id="screen-${windowId}">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">MEMORY:</span>
+                        <span class="info-value" id="device-memory-${windowId}">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">USER AGENT:</span>
+                        <span class="info-value" id="user-agent-${windowId}">Loading...</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">UPTIME:</span>
@@ -144,6 +156,9 @@ function initSystemMonitor(windowId) {
         uptime: 0
     };
     
+    // Load device information
+    loadDeviceInfo(windowId);
+    
     // Initial update
     updateSystemMonitor(windowId);
     
@@ -151,6 +166,29 @@ function initSystemMonitor(windowId) {
     monitorIntervals[windowId] = setInterval(() => {
         updateSystemMonitor(windowId);
     }, 1000);
+}
+
+function loadDeviceInfo(windowId) {
+    // Platform information
+    const platform = navigator.platform || 'Unknown';
+    document.getElementById(`platform-${windowId}`).textContent = platform;
+    
+    // CPU cores
+    const cpuCores = navigator.hardwareConcurrency || 'Unknown';
+    document.getElementById(`cpu-cores-${windowId}`).textContent = cpuCores + ' cores';
+    
+    // Screen information
+    const screenInfo = `${window.screen.width}x${window.screen.height}`;
+    document.getElementById(`screen-${windowId}`).textContent = screenInfo;
+    
+    // Device memory (if available)
+    const deviceMemory = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Unknown';
+    document.getElementById(`device-memory-${windowId}`).textContent = deviceMemory;
+    
+    // User agent (truncated for display)
+    const userAgent = navigator.userAgent;
+    const truncatedUA = userAgent.length > 50 ? userAgent.substring(0, 50) + '...' : userAgent;
+    document.getElementById(`user-agent-${windowId}`).textContent = truncatedUA;
 }
 
 function cleanupSystemMonitor(windowId) {

@@ -5,7 +5,7 @@ function createTerminalContent(windowId) {
         <div class="terminal-container">
             <div class="terminal-output" id="terminal-output-${windowId}">
                 <div class="terminal-line">
-                    <span class="terminal-prompt">CYBER-OS v3.1</span>
+                    <span class="terminal-prompt">CYBER-OS v3.2</span>
                 </div>
                 <div class="terminal-line">
                     <span class="terminal-prompt">Type 'help' for available commands</span>
@@ -93,7 +93,7 @@ Available commands:
             result = `
 root@cyber-os
 -----------
-OS: CYBER-OS v3.1
+OS: CYBER-OS v3.2
 Host: Web Browser
 Kernel: JavaScript
 Shell: CyberTerm
